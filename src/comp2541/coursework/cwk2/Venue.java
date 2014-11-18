@@ -24,22 +24,6 @@ public class Venue{
 		this.phone_number = phone_number;
 		this.website = website;
 		this.capacity = capacity;
-		
-		if(name.length() < 0){
-			throw new IllegalArgumentException("Enter a value for name");					
-		}
-		else if(address.length() < 0){
-			throw new IllegalArgumentException("Enter a value for address");
-		}
-		else if(phone_number < 0){
-			throw new IllegalArgumentException("Enter a value for phone number");
-		}
-		else if(website.length() < 0){
-			throw new IllegalArgumentException("Enter a value for website");
-		}
-		else if(capacity < 0){
-			throw new IllegalArgumentException("Enter a value for capacity");
-		}
 	}
 	
 	//Getters for the variables

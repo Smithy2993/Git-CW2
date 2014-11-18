@@ -26,13 +26,6 @@ public class Event
 		this.doors_open = doors_open;
 		this.price = price;
 		this.tickets_sold = tickets_sold;
-		
-		if(artists.length() < 0){
-			throw new IllegalArgumentException("Enter a value for artist");					
-		}
-		else if(tickets_sold < 0){
-			throw new IllegalArgumentException("Enter a value for tickets sold");
-		}
 	}
 
 	 //Getters for the variables

@@ -19,13 +19,33 @@ public class Event
 	private int tickets_sold;
 		
 	//Constructor for the variables
-		public Event(String artists, LocalDate date, LocalTime doors_open,
-				Money price, int tickets_sold) {
-			this.artists = artists;
-			this.date = date;
-			this.doors_open = doors_open;
-			this.price = price;
-			this.tickets_sold = tickets_sold;
-		}
+	public Event(String artists, LocalDate date, LocalTime doors_open,
+			Money price, int tickets_sold) {
+		this.artists = artists;
+		this.date = date;
+		this.doors_open = doors_open;
+		this.price = price;
+		this.tickets_sold = tickets_sold;
+	}
+
+	 //Getters for the variables
+	public String getArtists() {
+		return artists;
+	}
+	public LocalDate getDate() {
+		return date;
+	}
+	public LocalTime getDoors_open() {
+		return doors_open;
+	}
+	public Money getPrice() {
+		return price;
+	}
+	public int getTickets_sold(){
+		return tickets_sold;
+	}
+		
+
+		
 
 }

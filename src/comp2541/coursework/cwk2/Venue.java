@@ -25,5 +25,27 @@ public class Venue{
 		this.website = website;
 		this.capacity = capacity;
 	}
+	
+	//Getters for the variables
+	public String getName() {
+		return name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+	
+	public int getPhone_number() {
+		return phone_number;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
 
 }

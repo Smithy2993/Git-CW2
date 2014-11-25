@@ -6,7 +6,6 @@
 
 package comp2541.coursework.cwk2;
 
-import java.util.*;
 import org.joda.money.*;
 import org.joda.time.*;
 
@@ -14,30 +13,31 @@ public class Event
 {
 	//Instance Variables
 	public String artists;
-	public LocalDate date;
-	public LocalTime doors;
-	public Money ticketPrice;
+	public String date;
+	public String doors;
+	public int ticketPrice;
 	public int ticketsSold;
-		
+	public Venue capacity;
+	
 	//Constructor for the variables
-	public Event(String artists, LocalDate date, LocalTime doors,
-			Money ticketPrice, int ticketsSold) {
+	public Event(String artists, String date, String doors,
+			int ticketPrice, int ticketsSold) {
 		this.artists = artists;
 		this.date = date;
 		this.doors = doors;
 		this.ticketPrice = ticketPrice;
 		this.ticketsSold = ticketsSold;
 		
-		if(artists.length() < 0){
+		if(artists.length() <= 0){
 			throw new IllegalArgumentException("Enter a value for artist");					
 		}
-		else if(date == null){
+		else if(date.length() <= 0){
 			throw new IllegalArgumentException("Enter a value for the date");
 		}
-		else if(doors == null){
+		else if(doors.length() <= 0){
 			throw new IllegalArgumentException("Enter a value for doors opening time");
 		}
-		else if(ticketPrice == null){
+		else if(ticketPrice < 0){
 			throw new IllegalArgumentException("Enter a value for the ticket price");
 		}
 		else if(ticketsSold < 0){
@@ -49,13 +49,13 @@ public class Event
 	public String getArtists() {
 		return artists;
 	}
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
-	public LocalTime getDoors() {
+	public String getDoors() {
 		return doors;
 	}
-	public Money getticketPrice() {
+	public int getticketPrice() {
 		return ticketPrice;
 	}
 	public int getTicketsSold(){
@@ -63,21 +63,21 @@ public class Event
 	}
 	
 	//Add artist Method
-	public void addArtist(String artists){
-		Scanner scan1 = new Scanner(System.in);
-		System.out.println("Enter an artist: ");
-		artists = scan1.nextLine();
-		scan1.close();
+	public String addArtist(String artists){
+		return artists;
 	}
 	
 	//Method to check if the event has passed
-	public boolean isPast(){
+	public boolean isPast(String date, String doors){
+		LocalDate datestring = LocalDate.parse(date);
+		LocalTime doorsstring = LocalTime.parse(doors);
+		
 		LocalDate currentDate = LocalDate.now();
 		LocalTime currentTime = LocalTime.now();
-		if(currentDate.isAfter(date)){
+		if(currentDate.isBefore(datestring)){
 			return true;
 		}
-		else if(currentTime.isAfter(doors)){
+		else if(currentTime.isBefore(doorsstring)){
 			return true;
 		}
 		else{
@@ -87,13 +87,17 @@ public class Event
 	}
 	
 	//Method to check if the event is upcoming
-	public boolean isUpcoming(){
+	public boolean isUpcoming(String date,String doors){
+		LocalDate datestring = LocalDate.parse(date);
+		LocalTime doorsstring = LocalTime.parse(doors);
+		
 		LocalDate currentDate = LocalDate.now();
 		LocalTime currentTime = LocalTime.now();
-		if(currentDate.isBefore(date)){
+		
+		if(currentDate.isAfter(datestring)){
 			return true;
 		}
-		else if(currentTime.isAfter(doors)){
+		else if(currentTime.isAfter(doorsstring)){
 			return true;
 		}
 		else{
@@ -103,7 +107,6 @@ public class Event
 	
 	//Are  sold out method
 	public boolean isSoldOut(int ticketsSold, int capacity){
-		capacity = Venue.getCapacity();
 		if(capacity - ticketsSold < 0 ){
 			return true;
 		}
@@ -114,17 +117,24 @@ public class Event
 		}
 	
 	//Method to check if there are tickets avaliable
-	public void ticketsAvaliable(int ticketsSold, int capacity){
+	public int ticketsAvailable(int ticketsSold, int capacity){
+		int available = capacity - ticketsSold;
+		return available;
 		
 	}
 	
 	//Method to sell tickets
-	public void sellTickets(){
+	public boolean sellTickets(int ticketsRequired, int ticketsSold, int capacity){
+		if(ticketsRequired > (capacity - ticketsSold)){
+			return true;
+		}
+		return false;
 		
 	}
 	//Method to calculate how much was earned
-	public Money boxOfficeTakings(Money ticketPrice, int ticketsSold){
-		Money Earnings = this.ticketPrice.multipliedBy(this.ticketsSold);
+	public Money boxOfficeTakings(int ticketPrice, int ticketsSold){
+		Money ticket = Money.of(CurrencyUnit.GBP, ticketPrice);
+		Money Earnings = ticket.multipliedBy(ticketsSold);
 		return Earnings;
 	}
 	}

@@ -17,11 +17,12 @@ public class Event
 	public String doors;
 	public int ticketPrice;
 	public int ticketsSold;
-	public Venue capacity;
+	public Venue place;
 	
 	//Constructor for the variables
-	public Event(String artists, String date, String doors,
+	public Event(Venue Venue,String artists, String date, String doors,
 			int ticketPrice, int ticketsSold) {
+		this.place = Venue;
 		this.artists = artists;
 		this.date = date;
 		this.doors = doors;
@@ -63,12 +64,12 @@ public class Event
 	}
 	
 	//Add artist Method
-	public String addArtist(String artists){
-		return artists;
+	public void addArtist(String artists){
+		this.artists = this.artists + "," + artists;
 	}
 	
 	//Method to check if the event has passed
-	public boolean isPast(String date, String doors){
+	public boolean isPast(){
 		LocalDate datestring = LocalDate.parse(date);
 		LocalTime doorsstring = LocalTime.parse(doors);
 		
@@ -87,7 +88,7 @@ public class Event
 	}
 	
 	//Method to check if the event is upcoming
-	public boolean isUpcoming(String date,String doors){
+	public boolean isUpcoming(){
 		LocalDate datestring = LocalDate.parse(date);
 		LocalTime doorsstring = LocalTime.parse(doors);
 		
@@ -106,8 +107,8 @@ public class Event
 	}
 	
 	//Are  sold out method
-	public boolean isSoldOut(int ticketsSold, int capacity){
-		if(capacity - ticketsSold < 0 ){
+	public boolean isSoldOut(){
+		if(place.getCapacity() == ticketsSold || ticketsSold > place.getCapacity() ){
 			return true;
 		}
 		else{
@@ -117,22 +118,22 @@ public class Event
 		}
 	
 	//Method to check if there are tickets avaliable
-	public int ticketsAvailable(int ticketsSold, int capacity){
-		int available = capacity - ticketsSold;
+	public int ticketsAvailable(){
+		int available = place.getCapacity() - ticketsSold;
 		return available;
 		
 	}
 	
 	//Method to sell tickets
-	public boolean sellTickets(int ticketsRequired, int ticketsSold, int capacity){
-		if(ticketsRequired > (capacity - ticketsSold)){
+	public boolean sellTickets(int ticketsRequired){
+		if(ticketsRequired > (place.getCapacity() - ticketsSold)){
 			return true;
 		}
 		return false;
 		
 	}
 	//Method to calculate how much was earned
-	public Money boxOfficeTakings(int ticketPrice, int ticketsSold){
+	public Money boxOfficeTakings(){
 		Money ticket = Money.of(CurrencyUnit.GBP, ticketPrice);
 		Money Earnings = ticket.multipliedBy(ticketsSold);
 		return Earnings;

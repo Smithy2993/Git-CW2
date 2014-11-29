@@ -69,36 +69,29 @@ public class Event
 	}
 	
 	//Method to check if the event has passed
-	public boolean isPast(){
+	public boolean isPast(String date,String doors){
 		LocalDate datestring = LocalDate.parse(date);
 		LocalTime doorsstring = LocalTime.parse(doors);
 		
 		LocalDate currentDate = LocalDate.now();
 		LocalTime currentTime = LocalTime.now();
-		if(currentDate.isBefore(datestring)){
-			return true;
-		}
-		else if(currentTime.isBefore(doorsstring)){
+		if(currentDate.isAfter(datestring) || currentTime.isAfter(doorsstring)){
 			return true;
 		}
 		else{
 			return false;
 		}
-		
 	}
 	
 	//Method to check if the event is upcoming
-	public boolean isUpcoming(){
+	public boolean isUpcoming(String date,String doors){
 		LocalDate datestring = LocalDate.parse(date);
 		LocalTime doorsstring = LocalTime.parse(doors);
 		
 		LocalDate currentDate = LocalDate.now();
 		LocalTime currentTime = LocalTime.now();
 		
-		if(currentDate.isAfter(datestring)){
-			return true;
-		}
-		else if(currentTime.isAfter(doorsstring)){
+		if(currentDate.isBefore(datestring) || currentTime.isBefore(doorsstring)){
 			return true;
 		}
 		else{

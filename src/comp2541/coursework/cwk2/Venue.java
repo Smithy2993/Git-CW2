@@ -8,14 +8,18 @@ package comp2541.coursework.cwk2;
 
 public class Venue{
 	
-	//Instance variables
+	/**
+	 * Instance Variables
+	 */
 	public String name;
 	public String address;
 	public String phoneNumber;
 	public String website;
 	public int capacity;
 
-	//Constructor for the variables
+	/**
+	 * The Constructor that is needed for the instance variables
+	 */
 	public Venue(String name, String address, String phoneNumber, String website,
 			int capacity) {
 		super();
@@ -25,6 +29,10 @@ public class Venue{
 		this.website = website;
 		this.capacity = capacity;
 		
+		/**
+		 * The validation for each of the instance variables. 
+		 * The validation makes sure that an incorrect input cannot be entered for each variable
+		 */
 		if(name.length() <= 0){
 			throw new IllegalArgumentException("Enter a value for name");					
 		}
@@ -42,7 +50,9 @@ public class Venue{
 		}
 	}
 	
-	//Getters for the variables
+	/**
+	 * Getters for the variables
+	 */
 	public String getName() {
 		return name;
 	}
